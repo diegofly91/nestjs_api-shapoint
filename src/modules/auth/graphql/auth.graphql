@@ -1,0 +1,27 @@
+type SitePayload {
+    id: String!
+    name: String!
+    token: String!
+    displayName: String
+    createdDateTime: String
+    clientId: String
+}
+
+type Token {
+    access_token: String!
+    expiration: Float
+}
+
+input LoginSiteDto {
+    clientId: String!
+    site: String!
+}
+
+type Query {
+    siteCurrent: SitePayload
+}
+
+type Mutation {
+      loginSite(input: LoginSiteDto!): Token!
+      refreshToken: Token!
+}

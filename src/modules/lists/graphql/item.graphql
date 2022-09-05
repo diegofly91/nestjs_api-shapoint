@@ -1,0 +1,16 @@
+type Item {
+    id: String
+    webUrl: String!
+    fields: fields!
+}
+
+type fields {
+    Title: String!
+    LinkTitleNoMenu: String
+    LinkTitle: String
+}
+
+
+type Query {
+    getItemsByListId(listId: String!): [Item]!
+}

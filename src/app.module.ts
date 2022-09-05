@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-//import { ConfigHttp } from './config/config.http';
-import { DocumentModule } from '@/modules/document/document.module';
+import { GraphQL } from './config/index';
+import { AuthModule } from './modules/auth/auth.module';
+import { ListModule } from './modules/lists/list.module';
+
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), DocumentModule],
+    imports: [ConfigModule.forRoot({ isGlobal: true }), GraphQL, AuthModule, ListModule],
 })
 export class AppModule {
     static host: string;

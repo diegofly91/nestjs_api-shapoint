@@ -1,8 +1,10 @@
 type Item {
     id: String
     webUrl: String!
-    fields: fields!
+    fields: JSONObject!
 }
+
+scalar JSONObject
 
 type fields {
     Title: String!

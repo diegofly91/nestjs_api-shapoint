@@ -14,7 +14,7 @@ type Token {
 
 input LoginSiteDto {
     clientId: String!
-    site: String!
+    site: String
 }
 
 type Query {

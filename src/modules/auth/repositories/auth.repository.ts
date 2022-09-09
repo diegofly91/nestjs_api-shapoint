@@ -28,18 +28,18 @@ export class AuthRepository {
         }
     }
 
-    async getSiteData(token: string, site: string): Promise<ISite> {
+    async getSiteData(token: string, site?: string): Promise<ISite> {
         try {
-            const { data } = await this.httpService.axiosRef.get(
-                `https://graph.microsoft.com/v1.0/sites/${this.configService.get(
-                    'TENANT_NAME',
-                )}.sharepoint.com:/sites/${site}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+            const url = site
+                ? `https://graph.microsoft.com/v1.0/sites/${this.configService.get('TENANT_NAME')}
+            .sharepoint.com:/sites/${site}`
+                : `https://graph.microsoft.com/v1.0/sites/${this.configService.get('TENANT_NAME')}.sharepoint.com`;
+
+            const { data } = await this.httpService.axiosRef.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+            });
             return data;
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.UNAUTHORIZED);

@@ -9,3 +9,5 @@ class fields {
     LinkTitleNoMenu: string;
     LinkTitle: string;
 }
+
+export class JSONObject {}

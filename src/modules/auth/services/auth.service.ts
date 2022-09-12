@@ -8,18 +8,18 @@ import { AuthRepository } from '../repositories/auth.repository';
 export class AuthService {
     constructor(private readonly jwtService: JwtService, private readonly authRepository: AuthRepository) {}
 
-    async validateUser({ site, clientId }: LoginSiteDto): Promise<Token> {
-        const azu_token = await this.authRepository.loginMsGraph(clientId);
+    async validateUser(site?: string): Promise<Token> {
+        const azu_token = await this.authRepository.loginMsGraph();
         const dataSite = await this.authRepository.getSiteData(azu_token, site);
-        return await this.payloadData(azu_token, dataSite, clientId);
+        return await this.payloadData(azu_token, dataSite);
     }
 
-    async refreshToken({ clientId, id, name, webUrl, displayName }: ISitePayload): Promise<Token> {
-        const azu_token = await this.authRepository.loginMsGraph(clientId);
-        return await this.payloadData(azu_token, { id, name, webUrl, displayName }, clientId);
+    async refreshToken({ id, name, webUrl, displayName }: ISitePayload): Promise<Token> {
+        const azu_token = await this.authRepository.loginMsGraph();
+        return await this.payloadData(azu_token, { id, name, webUrl, displayName });
     }
 
-    async payloadData(token: string, { id, name, webUrl, displayName }: ISite, clientId: string) {
+    async payloadData(token: string, { id, name, webUrl, displayName }: ISite) {
         const date = new Date();
         const payload: ISitePayload = {
             id,
@@ -27,7 +27,6 @@ export class AuthService {
             token,
             webUrl,
             displayName,
-            clientId,
         };
 
         return {

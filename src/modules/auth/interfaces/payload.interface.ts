@@ -8,6 +8,4 @@ export class ISitePayload {
     readonly webUrl: string;
 
     readonly displayName: string;
-
-    readonly clientId: string;
 }

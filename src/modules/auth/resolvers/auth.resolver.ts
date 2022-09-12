@@ -17,8 +17,8 @@ export class AuthResolver {
 
     @UsePipes(new ValidationPipe())
     @Mutation(() => ISitePayload)
-    async loginSite(@Args('input') input: LoginSiteDto): Promise<Token> {
-        return await this.authService.validateUser(input);
+    async loginSite(@Args('site') site: string): Promise<Token> {
+        return await this.authService.validateUser(site);
     }
 
     @UseGuards(AuthGuard)

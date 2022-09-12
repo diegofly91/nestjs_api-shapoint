@@ -7,14 +7,14 @@ import { ISite } from '../interfaces';
 export class AuthRepository {
     constructor(private readonly httpService: HttpService, private readonly configService: ConfigService) {}
 
-    async loginMsGraph(client_id: string): Promise<string> {
+    async loginMsGraph(): Promise<string> {
         try {
             const { data } = await this.httpService.axiosRef.post(
                 `https://login.microsoftonline.com/${this.configService.get('TENANT_ID')}/oauth2/v2.0/token`,
                 `grant_type=client_credentials&
                     scope=${this.configService.get('SCOPE')}&
                     client_secret=${this.configService.get('CLIENT_SECRET')}&
-                    client_id=${client_id}
+                    client_id=${this.configService.get('CLIENT_ID')}
                 `,
                 {
                     headers: {
@@ -33,8 +33,6 @@ export class AuthRepository {
             const url = site
                 ? `https://graph.microsoft.com/v1.0/sites/${this.configService.get('TENANT_NAME')}.sharepoint.com:/sites/${site}`
                 : `https://graph.microsoft.com/v1.0/sites/${this.configService.get('TENANT_NAME')}.sharepoint.com`;
-
-            console.log({ url });
 
             const { data } = await this.httpService.axiosRef.get(url, {
                 headers: {

@@ -1,17 +1,11 @@
 type Item {
     id: String
     webUrl: String!
+    lastModifiedDateTime: String
     fields: JSONObject!
 }
 
 scalar JSONObject
-
-type fields {
-    Title: String!
-    LinkTitleNoMenu: String
-    LinkTitle: String
-}
-
 
 type Query {
     getItemsByListId(listId: String!): [Item]!

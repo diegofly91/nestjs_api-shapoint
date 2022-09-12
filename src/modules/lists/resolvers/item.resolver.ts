@@ -4,7 +4,6 @@ import { ItemService } from '../services';
 import { Item } from '../interfaces';
 import { AuthGuard } from '@/modules/auth/guards/';
 import { ISitePayload } from '@/modules/auth/interfaces';
-import { Console } from 'console';
 
 @Resolver()
 export class ItemResolver {

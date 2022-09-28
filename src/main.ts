@@ -2,6 +2,7 @@ import { BadRequestException, Logger, ValidationError, ValidationPipe } from '@n
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { graphqlUploadExpress } from 'graphql-upload-ts';
 import * as fs from 'fs-extra';
 
 const configService = new ConfigService();
@@ -37,6 +38,7 @@ if (fs.existsSync(crPath) && fs.existsSync(pkPath)) {
             whitelist: true,
         }),
     );
+    app.use(graphqlUploadExpress({ maxFiles: 2, maxFileSize: 100000000 }));
     await app.listen(port, host);
     logger.log(`Server is running in ${await app.getUrl()}/graphql`);
 })();
